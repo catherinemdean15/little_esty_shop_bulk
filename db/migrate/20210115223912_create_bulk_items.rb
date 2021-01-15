@@ -1,0 +1,9 @@
+class CreateBulkItems < ActiveRecord::Migration[5.2]
+  def change
+    create_table :bulk_items do |t|
+      t.integer :threshold
+      t.integer :percent_discount
+      t.references :merchant, foreign_key: true
+    end
+  end
+end
