@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "merchant bulk discounts index" do
+describe "merchant bulk discount show" do
   before :each do
     @merchant1 = Merchant.create!(name: 'Hair Care')
     @merchant2 = Merchant.create!(name: 'Jewelry')
@@ -63,5 +63,10 @@ describe "merchant bulk discounts index" do
     expect(page).to_not have_content("Item Threshold: #{@bulk2.threshold}")
     expect(page).to have_content("Percent Discount: #{@bulk1.percent_discount}")
     expect(page).to_not have_content("Percent Discount: #{@bulk2.percent_discount}")
+  end
+
+  it "has a link to edit the discount" do
+    click_link "Edit Discount"
+    expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1, @bulk1))
   end
 end
