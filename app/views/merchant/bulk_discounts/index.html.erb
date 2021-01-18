@@ -1,0 +1,10 @@
+<h1>Bulk Discounts for <%= @merchant.name %> </h1>
+
+<% @bulk_discounts.each do |discount| %>
+  <section id="discount-<%= discount.id %>" >
+    <%= link_to "Bulk Discount ##{discount.id}", merchant_bulk_discount_path(@merchant, discount) %>
+    Item Threshold: <%= discount.threshold %>
+    Percent Discount: <%= discount.percent_discount %>
+    <%= render partial: 'button', locals: { method: :delete, url: merchant_bulk_discount_path(@merchant, discount), local: true, model: discount} %>
+  </section>
+<% end %>
