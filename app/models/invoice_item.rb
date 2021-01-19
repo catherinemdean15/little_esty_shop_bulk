@@ -16,4 +16,11 @@ class InvoiceItem < ApplicationRecord
            .order(:created_at)
            .distinct
   end
+
+  def discount_unit_price(percent_discount)
+    invoice_items = InvoiceItem.where(item_id: self.item_id)
+    invoice_items.each do |invoice_item|
+      invoice_item.update_column(:unit_price, (self.item.unit_price - (self.item.unit_price * (percent_discount * 0.01))))
+    end
+  end
 end
