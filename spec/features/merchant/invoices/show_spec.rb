@@ -87,13 +87,21 @@ RSpec.describe 'invoices show' do
 
   it "shows a select field to update the invoice status" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
-    
+
     within("#the-status-#{@ii_1.id}") do
       page.select("cancelled")
       click_button "Update Invoice"
       expect(page).to have_content("cancelled")
       expect(page).to_not have_content("in progress")
      end
+  end
+
+  it "inclues bulk discounts in the calculation of total revenue" do
+    @bulk1 = @merchant1.bulk_discounts.create!(threshold: 25, percent_discount: 25)
+    @ii_12 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 25, unit_price: 6, status: 1)
+
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+    expect(page).to have_content(@invoice_1.total_revenue_with_discounts)
   end
 
 end
