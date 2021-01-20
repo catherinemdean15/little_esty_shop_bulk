@@ -25,6 +25,8 @@ class InvoiceItem < ApplicationRecord
   end
 
   def has_discount?
+    #item.unit_price is the original price point of the item
+    #invoice_item.unit_price shows the amount the item was sold at
     self.unit_price != item.unit_price
   end
 
