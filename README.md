@@ -20,7 +20,97 @@ Deploy completed code to Heroku
 # Database Schema
 <img src="https://user-images.githubusercontent.com/69832134/105249742-d3d0c180-5b35-11eb-9151-d72c130586d0.png" alt="little-esty-shop">
 
-Potential Future Functionality
+## User Stories
+
+``` 
+Merchant Bulk Discounts Index
+
+As a merchant
+When I visit my merchant dashboard
+Then I see a link to view all my discounts
+When I click this link
+Then I am taken to my bulk discounts index page
+Where I see all of my bulk discounts including their
+percentage discount and quantity thresholds
+And each bulk discount listed includes a link to its show page
+```
+
+``` 
+Merchant Bulk Discount Create
+
+As a merchant
+When I visit my bulk discounts index
+Then I see a link to create a new discount
+When I click this link
+Then I am taken to a new page where I see a form to add a new bulk discount
+When I fill in the form with valid data
+Then I am redirected back to the bulk discount index
+And I see my new bulk discount listed
+```
+
+```
+Merchant Bulk Discount Delete
+
+As a merchant
+When I visit my bulk discounts index
+Then next to each bulk discount I see a link to delete it
+When I click this link
+Then I am redirected back to the bulk discounts index page
+And I no longer see the discount listed
+```
+
+```
+Merchant Bulk Discount Show
+
+As a merchant
+When I visit my bulk discount show page
+Then I see the bulk discounts quantity and price
+```
+
+```
+Merchant Bulk Discount Edit
+
+As a merchant
+When I visit my bulk discount show page
+Then I see a link to edit the bulk discount
+When I click this link
+Then I am taken to a new page with a form to edit the discount
+And I see that the discounts current attributes are prepoluated in the form
+When I change any/all of the information and click submit
+Then I am redirected to the bulk discount's show page
+And I see that the discount's attributes have been updated
+```
+
+```
+Merchant Invoice Show Page: Total Revenue includes discounts
+
+As a merchant
+When I visit my merchant invoice show page
+Then I see that the total revenue for my merchant includes bulk discounts in the calculation
+```
+
+```
+Merchant Invoice Show Page: Link to applied discounts
+
+As a merchant
+When I visit my merchant invoice show page
+Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
+```
+
+```
+Admin Invoice Show Page: Total Revenue includes discounts
+
+As an admin
+When I visit an admin invoice show page
+Then I see that the total revenue includes bulk discounts in the calculation
+```
+
+## Extensions
+  - When an invoice is pending, a merchant should not be able to delete or edit a bulk discount that applies to any of their items on that invoice.
+  - When an Admin marks an invoice as “completed”, then the discount percentage should be stored on the invoice item record so that it can be referenced later
+  - Merchants should not be able to create/edit bulk discounts if they already have a discount in the system that would prevent the new discount from being applied (see example 4)
+
+# Potential Future Functionality
 Complete Extensions
 Add personal GitHub API
 Refactor Code and Complete All Model Testing to 100% Coverage
