@@ -23,7 +23,7 @@ Deploy completed code to Heroku
 ## User Stories
 
 ``` 
-Merchant Bulk Discounts Index
+1. Merchant Bulk Discounts Index
 
 As a merchant
 When I visit my merchant dashboard
@@ -36,7 +36,7 @@ And each bulk discount listed includes a link to its show page
 ```
 
 ``` 
-Merchant Bulk Discount Create
+2. Merchant Bulk Discount Create
 
 As a merchant
 When I visit my bulk discounts index
@@ -49,7 +49,7 @@ And I see my new bulk discount listed
 ```
 
 ```
-Merchant Bulk Discount Delete
+3. Merchant Bulk Discount Delete
 
 As a merchant
 When I visit my bulk discounts index
@@ -60,7 +60,7 @@ And I no longer see the discount listed
 ```
 
 ```
-Merchant Bulk Discount Show
+4. Merchant Bulk Discount Show
 
 As a merchant
 When I visit my bulk discount show page
@@ -68,7 +68,7 @@ Then I see the bulk discounts quantity and price
 ```
 
 ```
-Merchant Bulk Discount Edit
+5. Merchant Bulk Discount Edit
 
 As a merchant
 When I visit my bulk discount show page
@@ -82,7 +82,7 @@ And I see that the discount's attributes have been updated
 ```
 
 ```
-Merchant Invoice Show Page: Total Revenue includes discounts
+6. Merchant Invoice Show Page: Total Revenue includes discounts
 
 As a merchant
 When I visit my merchant invoice show page
@@ -90,7 +90,7 @@ Then I see that the total revenue for my merchant includes bulk discounts in the
 ```
 
 ```
-Merchant Invoice Show Page: Link to applied discounts
+7. Merchant Invoice Show Page: Link to applied discounts
 
 As a merchant
 When I visit my merchant invoice show page
@@ -98,7 +98,7 @@ Next to each invoice item I see a link to the show page for the bulk discount th
 ```
 
 ```
-Admin Invoice Show Page: Total Revenue includes discounts
+8. Admin Invoice Show Page: Total Revenue includes discounts
 
 As an admin
 When I visit an admin invoice show page
