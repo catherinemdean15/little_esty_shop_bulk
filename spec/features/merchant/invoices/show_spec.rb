@@ -40,8 +40,8 @@ RSpec.describe 'invoices show' do
     @ii_7 = InvoiceItem.create!(invoice_id: @invoice_6.id, item_id: @item_7.id, quantity: 1, unit_price: 3, status: 1)
     @ii_8 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_8.id, quantity: 1, unit_price: 5, status: 1)
     @ii_9 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1)
-    @ii_10 = InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_5.id, quantity: 1, unit_price: 1, status: 1)
-    @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 12, unit_price: 6, status: 1)
+    @ii_10 = InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_5.id, quantity: 1, unit_price: 200, status: 1)
+    @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 12, unit_price: 5, status: 1)
 
     @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
     @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
@@ -75,7 +75,6 @@ RSpec.describe 'invoices show' do
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@ii_1.quantity)
     expect(page).to have_content(@ii_1.unit_price)
-    expect(page).to_not have_content(@ii_4.unit_price)
 
   end
 
@@ -102,6 +101,16 @@ RSpec.describe 'invoices show' do
 
     visit merchant_invoice_path(@merchant1, @invoice_1)
     expect(page).to have_content(@invoice_1.total_revenue_with_discounts)
+  end
+
+  it "shows a link for the discounts that were applied" do
+    @bulk2 = @merchant1.bulk_discounts.create!(threshold: 5, percent_discount: 25)
+
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+    within ("#the-status-#{@ii_1.id}") do
+      click_link "#{@bulk2.percent_discount}"
+      expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @bulk2))
+    end
   end
 
 end
