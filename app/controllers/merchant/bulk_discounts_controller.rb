@@ -29,8 +29,12 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def update
-    @bulk_discount.update(bulk_discount_params)
-    redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
+    if @bulk_discount.update(bulk_discount_params)
+      redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
+    else
+      flash.notice = "All fields must be completed."
+      redirect_to edit_merchant_bulk_discount_path(@merchant, @bulk_discount)
+    end
   end
 
   private
