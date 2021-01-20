@@ -80,4 +80,15 @@ describe "merchant bulk discount edit" do
 
   end
 
+  it "has sad path in bulk_discount" do
+    fill_in "Threshold", with: ""
+    fill_in "Percent discount", with: "50"
+
+    click_button "Submit"
+
+    expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1, @bulk1))
+
+    expect(page).to have_content("All fields must be completed.")
+  end
+
 end
