@@ -113,4 +113,4 @@ Then I see that the total revenue includes bulk discounts in the calculation
 # Potential Future Functionality
 * Complete Extensions
 * Add personal GitHub API
-* Refactor Code and Complete All Model Testing to 100% Coverage
+
