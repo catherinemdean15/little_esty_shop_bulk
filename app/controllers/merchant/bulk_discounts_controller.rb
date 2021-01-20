@@ -11,7 +11,8 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def create
-
+    @merchant.bulk_discounts.create!(create_bulk_discount_params)
+    redirect_to merchant_bulk_discounts_path(@merchant)
   end
 
   def destroy
@@ -44,6 +45,10 @@ class Merchant::BulkDiscountsController < ApplicationController
 
   def bulk_discount_params
     params.require(:bulk_discount).permit(:threshold, :percent_discount)
+  end
+
+  def create_bulk_discount_params
+    params.permit(:threshold, :percent_discount)
   end
 
 end
