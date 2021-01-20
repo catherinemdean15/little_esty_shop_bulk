@@ -18,7 +18,7 @@ All code must be tested via feature tests and model tests, respectively progress
 Deploy completed code to Heroku
 
 # Database Schema
-(https://user-images.githubusercontent.com/69832134/105249742-d3d0c180-5b35-11eb-9151-d72c130586d0.png)
+<img src="https://user-images.githubusercontent.com/69832134/105249742-d3d0c180-5b35-11eb-9151-d72c130586d0.png" alt="little-esty-shop">
 
 Potential Future Functionality
 Complete Extensions
