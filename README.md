@@ -111,6 +111,6 @@ Then I see that the total revenue includes bulk discounts in the calculation
   - Merchants should not be able to create/edit bulk discounts if they already have a discount in the system that would prevent the new discount from being applied (see example 4)
 
 # Potential Future Functionality
-Complete Extensions
-Add personal GitHub API
-Refactor Code and Complete All Model Testing to 100% Coverage
+* Complete Extensions
+* Add personal GitHub API
+* Refactor Code and Complete All Model Testing to 100% Coverage
