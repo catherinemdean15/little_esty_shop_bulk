@@ -35,4 +35,5 @@ class InvoiceItem < ApplicationRecord
   def find_discount_amount
     ((item.unit_price - self.unit_price)/item.unit_price)*100
   end
+
 end

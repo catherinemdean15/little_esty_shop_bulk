@@ -109,6 +109,7 @@ describe Merchant do
 
     it 'top_5_items' do
       expect(@m1.top_5_items).to eq([@item_1, @item_9, @item_10, @item_7, @item_8])
+      expect(@m1.top_5_items.length).to eq(5)
     end
 
     it 'can list the top 5 merchants' do

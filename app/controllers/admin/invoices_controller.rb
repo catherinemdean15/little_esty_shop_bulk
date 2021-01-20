@@ -12,6 +12,9 @@ class Admin::InvoicesController < ApplicationController
 
   def update
     @invoice.update(invoice_params)
+    if invoice_params[:status] == 'complete'
+      @invoice.update_invoice_items_discount
+    end
     flash.notice = 'Invoice Has Been Updated!'
     redirect_to admin_invoice_path(@invoice)
   end

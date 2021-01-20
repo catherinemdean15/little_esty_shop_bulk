@@ -37,4 +37,12 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
+  def update_invoice_items_discount
+    invoice_items.each do |invoice_item|
+      if invoice_item.has_discount? == true
+        invoice_item.update_column(:discount, invoice_item.find_discount_amount)
+      end
+    end
+  end
+
 end
