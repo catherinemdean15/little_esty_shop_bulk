@@ -11,8 +11,13 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def create
-    @merchant.bulk_discounts.create!(create_bulk_discount_params)
-    redirect_to merchant_bulk_discounts_path(@merchant)
+    @bulk_discount = @merchant.bulk_discounts.new(create_bulk_discount_params)
+    if @bulk_discount.save
+      redirect_to merchant_bulk_discounts_path(@merchant)
+    else
+      flash.notice = "All fields must be completed."
+      redirect_to new_merchant_bulk_discount_path(@merchant)
+    end
   end
 
   def destroy
@@ -29,8 +34,12 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def update
-    @bulk_discount.update(bulk_discount_params)
-    redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
+    if @bulk_discount.update(bulk_discount_params)
+      redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
+    else
+      flash.notice = "All fields must be completed."
+      redirect_to edit_merchant_bulk_discount_path(@merchant, @bulk_discount)
+    end
   end
 
   private
