@@ -17,13 +17,15 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue_with_discounts
-    @bd = self.bulk_discounts.order(:threshold)
-    if @bd.length
-      @bd.map do |discount|
+    @bulk_discounts = self.bulk_discounts.order(:threshold)
+    # @bulk_discounts = all potential discounts available on this invoice
+    if @bulk_discounts.length
+      # if @bulk_discounts holds discounts
+      @bulk_discounts.map do |discount|
         invoice_items.select("invoice_items.item_id, sum(invoice_items.quantity) as total_q")
-                                          .group(:item_id)
-                                          .having('sum(invoice_items.quantity) >= ?', discount.threshold)
-                                          .each do |discountable_item|
+                     .group(:item_id)
+                     .having('sum(invoice_items.quantity) >= ?', discount.threshold)
+                     .each do |discountable_item|
           discountable_item.discount_unit_price(discount.percent_discount)
         end
       end
