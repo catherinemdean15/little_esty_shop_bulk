@@ -11,13 +11,14 @@ describe 'Admin Invoices Index Page' do
     @i2 = Invoice.create!(merchant_id: @m1.id, customer_id: @c2.id, status: 1, created_at: '2012-03-25 09:30:09')
 
     @item_1 = Item.create!(name: 'test', description: 'lalala', unit_price: 6, merchant_id: @m1.id)
-    @item_2 = Item.create!(name: 'rest', description: 'dont test me', unit_price: 12, merchant_id: @m1.id)
-    @item_3 = Item.create!(name: 'another item', description: 'this is the item description', unit_price: 12, merchant_id: @m1.id)
+    @item_2 = Item.create!(name: 'rest', description: 'dont test me', unit_price: 8, merchant_id: @m1.id)
+    @item_3 = Item.create!(name: 'item', description: 'a description', unit_price: 12, merchant_id: @m1.id)
+    @item_4 = Item.create!(name: 'another item', description: 'this is the item description', unit_price: 22, merchant_id: @m1.id)
 
-    @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 12, unit_price: 2, status: 0)
-    @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 6, unit_price: 1, status: 1)
-    @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_2.id, quantity: 87, unit_price: 12, status: 2)
-    @ii_4 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_3.id, quantity: 55, unit_price: 10, status: 1)
+    @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 12, unit_price: 6, status: 1)
+    @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 6, unit_price: 8, status: 1)
+    @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_3.id, quantity: 87, unit_price: 12, status: 2)
+    @ii_4 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_4.id, quantity: 55, unit_price: 22, status: 1)
 
   end
 
@@ -63,7 +64,7 @@ describe 'Admin Invoices Index Page' do
   it 'should display the total revenue the invoice will generate' do
     visit admin_invoice_path(@i1)
 
-    expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
+    expect(page).to have_content("$1,330.00")
 
     expect(page).to_not have_content(@i2.total_revenue)
   end
@@ -72,8 +73,7 @@ describe 'Admin Invoices Index Page' do
     visit admin_invoice_path(@i1)
 
     within("#status-update-#{@i1.id}") do
-      select('cancelled', :from => 'invoice[status]')
-      expect(page).to have_button('Update Invoice')
+      page.select("complete")
       click_button 'Update Invoice'
 
       expect(current_path).to eq(admin_invoice_path(@i1))
@@ -88,5 +88,21 @@ describe 'Admin Invoices Index Page' do
     visit admin_invoice_path(@i1)
 
     expect(page).to have_content(@i1.total_revenue_with_discounts)
+  end
+
+  it 'updates invoice_items when status changed to complete' do
+    @bulk1 = @m1.bulk_discounts.create!(threshold: 10, percent_discount: 25)
+    @bulk2 = @m1.bulk_discounts.create!(threshold: 50, percent_discount: 50)
+
+    visit admin_invoice_path(@i1)
+
+    within("#status-update-#{@i1.id}") do
+      page.select("complete")
+      click_button 'Update Invoice'
+
+      expect(@i1.invoice_items[0].discount).to eq(25)
+      expect(@i1.invoice_items[1].discount).to eq(nil)
+      expect(@i1.invoice_items[2].discount).to eq(50)
+    end
   end
 end
