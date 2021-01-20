@@ -28,4 +28,15 @@ describe "merchant bulk discount new" do
     expect(page).to_not have_content("Item Threshold: 10")
   end
 
+  it "ensures all fields are completed" do
+    fill_in "Threshold", with: ""
+    fill_in "Percent discount", with: "50"
+
+    click_button "Submit"
+
+    expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
+
+    expect(page).to have_content("All fields must be completed.")
+  end
+
 end
