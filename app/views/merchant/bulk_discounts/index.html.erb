@@ -8,3 +8,5 @@
     <%= render partial: 'button', locals: { method: :delete, url: merchant_bulk_discount_path(@merchant, discount), local: true, model: discount} %>
   </section>
 <% end %>
+
+<%= link_to "Create New Discount", new_merchant_bulk_discount_path(@merchant) %>
