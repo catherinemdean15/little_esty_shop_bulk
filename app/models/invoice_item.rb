@@ -23,4 +23,16 @@ class InvoiceItem < ApplicationRecord
       invoice_item.update_column(:unit_price, (self.item.unit_price - (self.item.unit_price * (percent_discount * 0.01))))
     end
   end
+
+  def has_discount?
+    self.unit_price != item.unit_price
+  end
+
+  def discount_applied
+    invoice.merchant.bulk_discounts.where(percent_discount: find_discount_amount).first
+  end
+
+  def find_discount_amount
+    ((item.unit_price - self.unit_price)/item.unit_price)*100
+  end
 end
