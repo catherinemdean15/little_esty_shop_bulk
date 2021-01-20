@@ -6,6 +6,14 @@ class Merchant::BulkDiscountsController < ApplicationController
     @bulk_discounts = @merchant.bulk_discounts
   end
 
+  def new
+
+  end
+
+  def create
+
+  end
+
   def destroy
     BulkDiscount.destroy(params[:id])
     redirect_to merchant_bulk_discounts_path(@merchant)
